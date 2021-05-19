@@ -1,10 +1,31 @@
 <template>
-  <div></div>
+  <div>
+    <div v-if="$store.state.favoritesList.length">
+      <image-card
+        v-for="item in favList"
+        :key="item.id"
+        :imageSrc="item.thumbnailUrl"
+        :fileName="item.title"
+        :id="item.id"
+      />
+    </div>
+    <div v-else>Favorites List is empty</div>
+  </div>
 </template>
 
 <script>
-import ImageItem from "@/components/image-item";
-export default { name: "FavoritesView", components: { ImageItem } };
+import ImageCard from "@/components/image-card";
+export default {
+  name: "FavoritesView",
+  components: { ImageCard },
+  computed: {
+    favList() {
+      return this.$store.state.imagesList.filter((el) =>
+        this.$store.state.favoritesList.includes(el.id)
+      );
+    },
+  },
+};
 </script>
 
 <style lang="scss">

@@ -1,11 +1,11 @@
 export default {
-  mode: "spa",
+  // mode: "spa",
+  target: "static",
   server: { host: "192.168.88.19" },
   head: {
-    title: "CC",
+    title: "Test Project",
     meta: [{ charset: "utf-8" }],
     link: [
-      // {rel:"preconnect", href="https://fonts.gstatic.com"},
       {
         rel: "stylesheet",
         href:
@@ -13,7 +13,6 @@ export default {
       },
     ],
   },
-
   plugins: [],
   modules: ["@nuxtjs/axios"],
   buildModules: [],

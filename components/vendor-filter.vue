@@ -3,8 +3,14 @@
     <div class="vendor-filter__header">
       <div class="vendor-filter__title">
         Фильтр:
-        <span class="vendor-filter__name">По альбомам</span>
-        <span class="vendor-filter__name">Избранное</span>
+        <span class="vendor-filter__name" @click="setFilterType('albumView')"
+          >По альбомам</span
+        >
+        <span
+          class="vendor-filter__name"
+          @click="setFilterType('favoritesView')"
+          >Избранное</span
+        >
       </div>
     </div>
     <div class="vendor-filter__scroll-wrap">
@@ -36,9 +42,11 @@ export default {
     ...mapState(["filterType"]),
   },
 
-  created() {},
-
-  methods: {},
+  methods: {
+    setFilterType(type) {
+      this.$store.commit("SET_IMAGES_FILTER_TYPE", type);
+    },
+  },
 };
 </script>
 

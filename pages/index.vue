@@ -15,9 +15,10 @@ export default {
     },
   },
   async asyncData({ store, $axios }) {
-    const res = await $axios.$get("http://jsonplaceholder.typicode.com/photos");
-    const parsedData = res.slice(0, 99);
-    store.commit("SET_IMAGES_LIST", parsedData);
+    const res = await $axios.$get(
+      "http://jsonplaceholder.typicode.com/photos?_start=0&_limit=100"
+    );
+    store.commit("SET_IMAGES_LIST", res);
   },
 };
 </script>

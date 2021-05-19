@@ -1,19 +1,25 @@
 <template>
-  <div class="image-item">
+  <div class="image-card">
     <img :src="imageSrc" :alt="fileName" />
     <div v-text="fileName"></div>
+    <button @click="favoritesHandler">Add</button>
   </div>
 </template>
 
 <script>
 export default {
-  name: "ImageItem",
-  props: ["imageSrc", "fileName"],
+  name: "ImageCard",
+  props: ["imageSrc", "fileName", "id"],
+  methods: {
+    favoritesHandler() {
+      this.$store.commit("HANDLE_FAVORITES_LIST", this.id);
+    },
+  },
 };
 </script>
 
 <style lang="scss">
-.image-item {
+.image-card {
   display: flex;
   align-items: center;
   background: #f7f8f9;
@@ -34,7 +40,7 @@ export default {
     line-height: 16px;
     color: #1c214c;
   }
-  & + .image-item {
+  & + .image-card {
     margin-top: 12px;
   }
 }

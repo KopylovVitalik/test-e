@@ -1,32 +1,30 @@
 <template>
-  <div>
-    <div class="d" v-for="(value, key) in albumList" :key="key">
-      <div class="s" v-text="key"></div>
-      <ImageItem
-        v-for="item in value"
-        :key="item.id"
-        :imageSrc="item.thumbnailUrl"
-        :fileName="item.title"
-      />
-    </div>
+  <div class="favorites-view">
+    <album-card
+      class="album-card"
+      v-for="(value, key) in albumList"
+      :key="key"
+      :list="value"
+      :title="key"
+    />
   </div>
 </template>
 
 <script>
-import ImageItem from "@/components/image-item";
+import AlbumCard from "~/components/album-card.vue";
 export default {
   name: "AlbumView",
-  components: { ImageItem },
+  components: { AlbumCard },
   computed: {
     albumList() {
       let list = [...this.$store.state.imagesList];
       let arr = {};
       list
         .sort((a, b) => {
-          if (a.title < b.title) {
+          if (a.title.toLowerCase() < b.title.toLowerCase()) {
             return -1;
           }
-          if (a.title > b.title) {
+          if (a.title.toLowerCase() > b.title.toLowerCase()) {
             return 1;
           }
           return 0;
@@ -40,10 +38,24 @@ export default {
           arr[s] = [el];
         });
       return arr;
+      // const groupBy = (arr) =>
+      //   arr
+      //     .map((el) => el.title.substring(0, 1))
+      //     .reduce((acc, val, i) => {
+      //       acc[val] = (acc[val] || []).concat(arr[i]);
+      //       return acc;
+      //     }, {});
+      // retun groupBy([...this.$store.state.imagesList]);
     },
   },
 };
 </script>
 
 <style lang="scss">
+.favorites-view {
+  columns: 4;
+  & > * {
+    break-inside: avoid;
+  }
+}
 </style>
