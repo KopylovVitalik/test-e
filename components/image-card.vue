@@ -1,8 +1,33 @@
 <template>
   <div class="image-card">
-    <img :src="imageSrc" :alt="fileName" />
-    <div v-text="fileName"></div>
-    <button @click="favoritesHandler">Add</button>
+    <img :src="imageSrc" :alt="fileName" class="image-card__image" />
+    <div v-text="fileName" class="image-card__text"></div>
+    <div class="image-card__button">
+      <button
+        @click="favoritesHandler"
+        :class="['fav-btn', isActive && 'is-active']"
+      >
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 14 14"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g clip-path="url(#clip0)">
+            <path
+              d="M7.83093 0.688016L9.58493 4.38802L13.1769 4.76902C13.3587 4.78666 13.5312 4.85808 13.6722 4.97417C13.8133 5.09026 13.9165 5.24575 13.9688 5.42079C14.021 5.59582 14.0199 5.78246 13.9656 5.95688C13.9114 6.1313 13.8063 6.28557 13.6639 6.40002L10.7999 8.75502L11.6859 12.714C11.7255 12.89 11.7125 13.0737 11.6484 13.2423C11.5843 13.4109 11.472 13.5569 11.3255 13.6621C11.179 13.7674 11.0048 13.8272 10.8246 13.8341C10.6443 13.841 10.466 13.7947 10.3119 13.701L6.99993 11.686L3.68493 13.7C3.53073 13.7935 3.35245 13.8397 3.17225 13.8327C2.99204 13.8257 2.81786 13.7659 2.67136 13.6608C2.52486 13.5556 2.41249 13.4097 2.34823 13.2412C2.28397 13.0727 2.27065 12.889 2.30993 12.713L3.19993 8.75502L0.335929 6.40002C0.19455 6.28526 0.0904478 6.13109 0.036833 5.95707C-0.0167817 5.78306 -0.0174921 5.59703 0.0347919 5.42261C0.0870759 5.24819 0.189997 5.09323 0.330496 4.97739C0.470995 4.86156 0.642737 4.79008 0.823929 4.77202L4.41493 4.39102L6.16893 0.688016C6.24359 0.530842 6.3613 0.398066 6.50839 0.305097C6.65548 0.212129 6.82592 0.162781 6.99993 0.162781C7.17394 0.162781 7.34438 0.212129 7.49147 0.305097C7.63856 0.398066 7.75626 0.530842 7.83093 0.688016Z"
+              class="star-fill"
+            />
+          </g>
+          <defs>
+            <clipPath id="clip0">
+              <rect width="14" height="14" fill="white" />
+            </clipPath>
+          </defs>
+        </svg>
+      </button>
+    </div>
   </div>
 </template>
 
@@ -13,6 +38,11 @@ export default {
   methods: {
     favoritesHandler() {
       this.$store.commit("HANDLE_FAVORITES_LIST", this.id);
+    },
+  },
+  computed: {
+    isActive() {
+      return this.$store.state.favoritesList.includes(this.id);
     },
   },
 };
@@ -40,8 +70,25 @@ export default {
     line-height: 16px;
     color: #1c214c;
   }
+  &__button {
+    margin-left: auto;
+  }
   & + .image-card {
-    margin-top: 12px;
+    margin-top: 8px;
+  }
+}
+
+.fav-btn {
+  background: none;
+  border: none;
+  .star-fill {
+    fill: #dedee6;
+    transition: fill;
+  }
+  &.is-active {
+    .star-fill {
+      fill: var(--accentColor);
+    }
   }
 }
 </style>

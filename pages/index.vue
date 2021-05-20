@@ -1,5 +1,5 @@
 <template>
-  <popup-container :list="filteredList"></popup-container>
+  <popup-container :list="imagesList"></popup-container>
 </template>
 
 <script>
@@ -7,18 +7,11 @@ import PopupContainer from "@/components/popup-container";
 
 export default {
   components: { PopupContainer },
-
-  methods: {},
-  computed: {
-    filteredList() {
-      return this.imagesList;
-    },
-  },
   async asyncData({ store, $axios }) {
     const res = await $axios.$get(
       "http://jsonplaceholder.typicode.com/photos?_start=0&_limit=100"
     );
-    store.commit("SET_IMAGES_LIST", res);
+    return { imagesList: res };
   },
 };
 </script>

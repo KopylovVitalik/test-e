@@ -1,23 +1,20 @@
 <template>
   <div class="vendor-filter">
     <div class="vendor-filter__header">
-      <div class="vendor-filter__title">
-        Фильтр:
-        <span class="vendor-filter__name" @click="setFilterType('albumView')"
-          >По альбомам</span
-        >
-        <span
-          class="vendor-filter__name"
-          @click="setFilterType('favoritesView')"
-          >Избранное</span
-        >
-      </div>
+      <filter-controls
+        @setFilterType="setFilterType"
+        :filter="filter"
+        :filterType="filterType"
+      />
     </div>
     <div class="vendor-filter__scroll-wrap">
       <div class="vendor-filter__scroll">
         <div class="vendor-filter__list">
-          <favorites-view v-if="filterType === 'favoritesView'" />
-          <album-view v-if="filterType === 'albumView'" />
+          <favorites-view
+            v-if="filterType === 'favoritesView'"
+            :list="imagesList"
+          />
+          <album-view v-if="filterType === 'albumView'" :list="imagesList" />
         </div>
       </div>
     </div>
@@ -28,24 +25,51 @@
 import { mapState } from "Vuex";
 import AlbumView from "./album-view.vue";
 import FavoritesView from "./favorites-view.vue";
+import FilterControls from "./filter-controls.vue";
 export default {
-  props: {},
+  props: ["list"],
   components: {
     FavoritesView,
     AlbumView,
+    FilterControls,
   },
   data() {
-    return {};
+    return {
+      filterType: "albumView",
+      imagesList: [],
+      filter: [
+        {
+          title: "A-Z",
+          type: "albumView",
+        },
+        {
+          title: "Favorites",
+          type: "favoritesView",
+        },
+      ],
+    };
   },
-
-  computed: {
-    ...mapState(["filterType"]),
-  },
-
   methods: {
     setFilterType(type) {
-      this.$store.commit("SET_IMAGES_FILTER_TYPE", type);
+      localStorage.setItem("filterType", type);
+      this.filterType = type;
     },
+  },
+  mounted() {
+    const filterType = localStorage.getItem("filterType");
+    if (filterType) this.filterType = filterType;
+
+    const favList = localStorage.getItem("favoritesList");
+    if (favList) {
+      console.log(favList);
+      this.$store.commit("INIT_FAVORITES_LIST", JSON.parse(favList));
+    }
+  },
+  async fetch() {
+    const res = await this.$axios.$get(
+      "http://jsonplaceholder.typicode.com/photos?_start=0&_limit=100"
+    );
+    this.imagesList = res;
   },
 };
 </script>
@@ -85,7 +109,9 @@ export default {
 
   &__scroll {
     width: 100%;
-    max-height: 66rem;
+    // magic
+    // max-height: 50vh;
+    max-height: 460px;
     overflow-y: auto;
   }
 

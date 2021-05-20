@@ -18,9 +18,10 @@ import ImageCard from "@/components/image-card";
 export default {
   name: "FavoritesView",
   components: { ImageCard },
+  props: ["list"],
   computed: {
     favList() {
-      return this.$store.state.imagesList.filter((el) =>
+      return this.list.filter((el) =>
         this.$store.state.favoritesList.includes(el.id)
       );
     },

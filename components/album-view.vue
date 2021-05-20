@@ -1,6 +1,6 @@
 <template>
   <div class="favorites-view">
-    <album-card
+    <image-group
       class="album-card"
       v-for="(value, key) in albumList"
       :key="key"
@@ -11,15 +11,15 @@
 </template>
 
 <script>
-import AlbumCard from "~/components/album-card.vue";
+import ImageGroup from "~/components/image-group.vue";
 export default {
   name: "AlbumView",
-  components: { AlbumCard },
+  components: { ImageGroup },
+  props: ["list"],
   computed: {
     albumList() {
-      let list = [...this.$store.state.imagesList];
       let arr = {};
-      list
+      this.list
         .sort((a, b) => {
           if (a.title.toLowerCase() < b.title.toLowerCase()) {
             return -1;
