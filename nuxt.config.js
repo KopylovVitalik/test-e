@@ -16,4 +16,7 @@ export default {
   plugins: [],
   modules: ["@nuxtjs/axios"],
   buildModules: [],
+  router: {
+    base: "/test-e/",
+  },
 };
