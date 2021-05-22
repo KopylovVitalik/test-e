@@ -1,7 +1,7 @@
 <template>
   <div class="image-card">
     <img :src="imageSrc" :alt="fileName" class="image-card__image" />
-    <div v-text="fileName" class="image-card__text"></div>
+    <div v-text="fileName" class="image-card__text" />
     <div class="image-card__button">
       <button
         @click="favoritesHandler"
@@ -42,7 +42,7 @@ export default {
   },
   computed: {
     isActive() {
-      return this.$store.state.favoritesList.includes(this.id);
+      return this.$store.state.favoritesListIds.includes(this.id);
     },
   },
 };
@@ -62,13 +62,12 @@ export default {
     object-fit: cover;
     margin-right: 12px;
   }
-  div {
-    font-family: Open Sans;
-    font-style: normal;
-    font-weight: bold;
+  &__text {
+    font-weight: 700;
     font-size: 12px;
     line-height: 16px;
-    color: #1c214c;
+    color: var(--textColor);
+    margin-right: 5px;
   }
   &__button {
     margin-left: auto;
@@ -79,16 +78,18 @@ export default {
 }
 
 .fav-btn {
-  background: none;
-  border: none;
-  .star-fill {
-    fill: #dedee6;
-    transition: fill;
+  transition: transform 0.3s;
+  &:hover {
+    transform: scale(1.3);
   }
   &.is-active {
     .star-fill {
       fill: var(--accentColor);
     }
+  }
+  .star-fill {
+    fill: #dedee6;
+    transition: fill 0.3s;
   }
 }
 </style>

@@ -30,7 +30,11 @@ export default {
 .filter-controls {
   display: flex;
   align-items: center;
+  &__title {
+    margin-right: 6px;
+  }
   &__control {
+    padding: 0 6px;
     & + .filter-controls__control {
       position: relative;
       &:before {
@@ -47,16 +51,37 @@ export default {
 }
 
 .control-btn {
-  font-family: Open Sans;
-  font-style: normal;
-  font-weight: bold;
+  font-family: Open Sans, Roboto, sans-serif;
+  font-weight: 700;
   font-size: 14px;
   line-height: 19px;
-  color: #1c214c;
-  background: none;
-  border: none;
+  color: var(--textColor);
+  position: relative;
+  padding: 0;
+  &:hover {
+    &:before {
+      transform: scale(1);
+      transform-origin: 0 50%;
+    }
+  }
+  &:before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--textColor);
+    transform: scale(0);
+    transform-origin: 100% 50%;
+    transition: transform 0.3s;
+  }
   &.is-active {
     color: var(--accentColor);
+    pointer-events: none;
+    &:before {
+      background-color: var(--accentColor);
+    }
   }
 }
 </style>

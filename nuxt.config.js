@@ -1,10 +1,14 @@
 export default {
-  // mode: "spa",
   target: "static",
-  server: { host: "192.168.88.19" },
+  server: {
+    host: process.env.NODE_ENV === "production" ? "localhost" : "192.168.88.19",
+  },
   head: {
     title: "Test Project",
-    meta: [{ charset: "utf-8" }],
+    meta: [
+      { charset: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+    ],
     link: [
       {
         rel: "stylesheet",
@@ -13,10 +17,8 @@ export default {
       },
     ],
   },
-  plugins: [],
   modules: ["@nuxtjs/axios"],
-  buildModules: [],
   router: {
-    base: "/test-e/",
+    base: process.env.NODE_ENV === "production" ? "/test-e/" : "/",
   },
 };

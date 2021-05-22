@@ -1,5 +1,5 @@
 <template>
-  <popup-container :list="imagesList"></popup-container>
+  <popup-container />
 </template>
 
 <script>

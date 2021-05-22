@@ -14,22 +14,27 @@
 </template>
 
 <script>
-import imageCard from "./image-card.vue";
+import ImageCard from "@/components/image-card";
 export default {
-  name: "AlbumCard",
-  components: { imageCard },
+  name: "ImageGroup",
+  components: { ImageCard },
   props: ["title", "list"],
 };
 </script>
 
 <style lang="scss">
 .image-group {
-  padding: 4px;
   border-radius: 10px;
   margin-bottom: 24px;
+  @media only screen and (max-width: 767px) {
+    margin-bottom: 20px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
   &__title {
     text-transform: uppercase;
-    margin-bottom: 8px;
+    margin: 0 0 8px;
     padding-left: 24px;
   }
 }
