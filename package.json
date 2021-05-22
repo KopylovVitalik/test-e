@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.4",
+    "@nuxtjs/proxy": "^2.1.0",
     "nuxt": "^2.14.4"
   },
   "devDependencies": {
