@@ -19,7 +19,7 @@ export default {
   },
   modules: ["@nuxtjs/axios"],
   axios: {
-    baseURL: "http://jsonplaceholder.typicode.com",
+    baseURL: "https://jsonplaceholder.typicode.com",
     proxyHeaders: false,
     credentials: false,
   },
