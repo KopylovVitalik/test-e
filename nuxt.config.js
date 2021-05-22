@@ -18,6 +18,11 @@ export default {
     ],
   },
   modules: ["@nuxtjs/axios"],
+  axios: {
+    baseURL: "http://jsonplaceholder.typicode.com",
+    proxyHeaders: false,
+    credentials: false,
+  },
   router: {
     base: process.env.NODE_ENV === "production" ? "/test-e/" : "/",
   },

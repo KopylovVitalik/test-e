@@ -111,7 +111,7 @@ export default {
   },
   async fetch() {
     const res = await this.$axios
-      .$get("http://jsonplaceholder.typicode.com/photos?_start=0&_limit=100")
+      .$get("/photos?_start=0&_limit=100")
       .then((res) => (this.imagesList = res))
       .catch((err) => (this.imagesList = []));
   },
